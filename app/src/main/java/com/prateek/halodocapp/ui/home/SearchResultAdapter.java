@@ -45,11 +45,12 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         holder.listItemBinding.searchItemTitle.setText(searchHit.getTitle());
         holder.listItemBinding.searchItemAuthor.setText(searchHit.getAuthor());
 
-        holder.listItemBinding.searchItemCardViews.setOnClickListener(view -> switchDetailsActivity(holder.listItemBinding.searchItemAuthor.getContext()));
+        holder.listItemBinding.searchItemCardViews.setOnClickListener(view -> switchDetailsActivity(holder.listItemBinding.searchItemAuthor.getContext(), searchHit.getUrl()));
     }
 
-    public void switchDetailsActivity(Context context) {
+    public void switchDetailsActivity(Context context, String url) {
         Intent intent = new Intent(context, DetailsActivity.class);
+        intent.putExtra(DetailsActivity.DETAILS_URL_KEY, url);
         context.startActivity(intent);
     }
 
