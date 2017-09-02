@@ -15,6 +15,8 @@ public class HomeActivity extends AppCompatActivity {
 
     public static final String TAG = "Halodoc, HomeActivity";
 
+    IHomeContract.IHomePresenter homePresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,10 +24,7 @@ public class HomeActivity extends AppCompatActivity {
 
         RetrofitService retrofitService = ((HalodocApp) this.getApplication()).retrofitClient();
 
-        retrofitService.listResults("news")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(results -> Log.e(TAG, "Size: " + results.getHits().size())
-                        , throwable -> Log.e(TAG, throwable.getMessage()));
+        homePresenter = new HomePresenter();
+
     }
 }

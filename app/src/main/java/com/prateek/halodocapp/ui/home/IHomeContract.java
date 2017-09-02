@@ -7,11 +7,10 @@ package com.prateek.halodocapp.ui.home;
 public interface IHomeContract {
 
     interface IHomeView {
-
+        void searchResult();
     }
 
-    interface IHomePersenter {
-
+    interface IHomePresenter {
+        void onSearchAction(String value);
     }
-
 }

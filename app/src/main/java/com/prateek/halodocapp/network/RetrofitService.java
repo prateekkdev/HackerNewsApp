@@ -15,5 +15,6 @@ public interface RetrofitService {
     String SERVICE_ENDPOINT = "http://hn.algolia.com/";
 
     @GET("/api/v1/search")
-    Observable<SearchResult> listResults(@Query("query") String keyword);
+    Observable<SearchResult> listResults(@Query("query") String keyword,
+                                         @Query("page") int page);
 }
