@@ -78,7 +78,7 @@ public class HomeActivity extends AppCompatActivity implements IHomeContract.IHo
             int visibleItemCount = mLayoutManager.getChildCount();
             int totalItemCount = mLayoutManager.getItemCount();
             int pastVisibleItems = mLayoutManager.findFirstVisibleItemPosition();
-            if (pastVisibleItems + visibleItemCount >= totalItemCount) {
+            if (pastVisibleItems + visibleItemCount  - 5 >= totalItemCount) {
                 homePresenter.loadNextPage(binding.homeTxtSearch.getText().toString());
             }
         }
