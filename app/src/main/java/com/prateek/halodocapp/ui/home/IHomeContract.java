@@ -1,5 +1,9 @@
 package com.prateek.halodocapp.ui.home;
 
+import com.prateek.halodocapp.network.dto.Hit;
+
+import java.util.List;
+
 /**
  * Created by prateek.kesarwani on 02/09/17.
  */
@@ -7,7 +11,7 @@ package com.prateek.halodocapp.ui.home;
 public interface IHomeContract {
 
     interface IHomeView {
-        void searchResult();
+        void searchResult(List<Hit> hitsArrayList);
     }
 
     interface IHomePresenter {

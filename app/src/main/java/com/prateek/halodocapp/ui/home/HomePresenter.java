@@ -15,18 +15,27 @@ public class HomePresenter implements IHomeContract.IHomePresenter {
 
     public static final String TAG = "Halodoc, HomePresenter";
 
+    private IHomeContract.IHomeView homeView;
+
     private RetrofitService service;
 
-    public HomePresenter(RetrofitService service) {
+    public HomePresenter(IHomeContract.IHomeView homeView, RetrofitService service) {
         this.service = service;
+        this.homeView = homeView;
     }
 
     @Override
     public void onSearchAction(String value) {
-        service.listResults("news", 0)
+
+        Log.e(TAG, "Starting network request with value: " + value);
+
+        service.listResults(value, 0)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(results -> Log.e(TAG, "Size: " + results.getHits().size())
-                        , throwable -> Log.e(TAG, throwable.getMessage()));
+                .subscribe(results -> {
+                            Log.e(TAG, "Network Success, total hits: " + results.getHits().size());
+                            homeView.searchResult(results.getHits());
+                        }
+                        , throwable -> Log.e(TAG, "Network Error: " + throwable.getMessage()));
     }
 }
