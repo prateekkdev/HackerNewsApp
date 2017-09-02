@@ -1,9 +1,11 @@
 package com.prateek.halodocapp.ui.home;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.inputmethod.InputMethodManager;
 
 import com.prateek.halodocapp.R;
 import com.prateek.halodocapp.app.HalodocApp;
@@ -35,7 +37,14 @@ public class HomeActivity extends AppCompatActivity implements IHomeContract.IHo
         binding.homeRecyclerview.setLayoutManager(new LinearLayoutManager(this));
         binding.homeRecyclerview.setAdapter(resultAdapter);
 
-        binding.homeBtnSearch.setOnClickListener(view -> homePresenter.onSearchAction(binding.homeTxtSearch.getText().toString()));
+        binding.homeBtnSearch.setOnClickListener(view -> {
+
+            InputMethodManager imm = (InputMethodManager) getSystemService(
+                    Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(binding.homeBtnSearch.getWindowToken(), 0);
+
+            homePresenter.onSearchAction(binding.homeTxtSearch.getText().toString());
+        });
     }
 
     @Override
