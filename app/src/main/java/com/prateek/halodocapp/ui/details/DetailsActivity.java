@@ -16,9 +16,9 @@ public class DetailsActivity extends AppCompatActivity implements IDetailsContra
 
     public static final String DETAILS_URL_KEY = "DETAILS_URL_KEY";
 
-    ActivityDetailsBinding binding;
+    private ActivityDetailsBinding binding;
 
-    WebView mWebview;
+    private WebView mWebview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +30,22 @@ public class DetailsActivity extends AppCompatActivity implements IDetailsContra
 
         mWebview = binding.detailsWebView;
 
+        // These should be exported to Presenter.
+
+        initWebView();
+        startProgress();
+        if (TextUtils.isEmpty(url)) {
+            mWebview.loadUrl("http://www.olacabs.com");
+        } else {
+            mWebview.loadUrl(url);
+        }
+    }
+
+    @Override
+    public void initWebView() {
+
         mWebview.getSettings().setJavaScriptEnabled(true);
 
-        startProgress();
         mWebview.setWebViewClient(new WebViewClient() {
 
             @Override
@@ -45,12 +58,6 @@ public class DetailsActivity extends AppCompatActivity implements IDetailsContra
                 showError();
             }
         });
-
-        if (TextUtils.isEmpty(url)) {
-            mWebview.loadUrl("http://www.olacabs.com");
-        } else {
-            mWebview.loadUrl(url);
-        }
     }
 
     @Override

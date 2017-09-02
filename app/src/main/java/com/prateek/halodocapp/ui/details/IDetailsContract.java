@@ -12,6 +12,8 @@ public interface IDetailsContract {
         void stopProgress();
 
         void showError();
+
+        void initWebView();
     }
 
     interface IDetailsPresenter {
