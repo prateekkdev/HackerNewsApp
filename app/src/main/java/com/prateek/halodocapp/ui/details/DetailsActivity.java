@@ -1,28 +1,25 @@
 package com.prateek.halodocapp.ui.details;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 
 import com.prateek.halodocapp.R;
+import com.prateek.halodocapp.databinding.ActivityDetailsBinding;
 
 public class DetailsActivity extends AppCompatActivity {
+
+    ActivityDetailsBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_details);
+
+        // binding.detailsWebView.load
+
+        binding.detailsWebView.loadUrl("http://www.google.com");
     }
 
 }
