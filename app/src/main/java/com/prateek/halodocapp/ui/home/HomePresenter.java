@@ -19,6 +19,8 @@ public class HomePresenter implements IHomeContract.IHomePresenter {
 
     private RetrofitService service;
 
+    private int currentPage;
+
     public HomePresenter(IHomeContract.IHomeView homeView, RetrofitService service) {
         this.service = service;
         this.homeView = homeView;
@@ -26,16 +28,33 @@ public class HomePresenter implements IHomeContract.IHomePresenter {
 
     @Override
     public void onSearchAction(String value) {
-
         Log.e(TAG, "Starting network request with value: " + value);
+        resetCurrentPage();
+        search(value, 0);
+    }
 
-        service.listResults(value, 0)
+    private void resetCurrentPage() {
+        currentPage = 0;
+    }
+
+    private void search(String value, int page) {
+        service.listResults(value, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(disposable -> homeView.startProgress())
+                .doOnTerminate(() -> homeView.stopProgress())
                 .subscribe(results -> {
                             Log.e(TAG, "Network Success, total hits: " + results.getHits().size());
                             homeView.searchResult(results.getHits());
                         }
-                        , throwable -> Log.e(TAG, "Network Error: " + throwable.getMessage()));
+                        , throwable -> {
+                            Log.e(TAG, "Network Error: " + throwable.getMessage());
+                            homeView.showError();
+                        });
+    }
+
+    @Override
+    public void loadNextPage(String value) {
+        search(value, ++currentPage);
     }
 }

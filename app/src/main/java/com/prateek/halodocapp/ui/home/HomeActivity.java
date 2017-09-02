@@ -5,7 +5,10 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import com.prateek.halodocapp.R;
 import com.prateek.halodocapp.app.HalodocApp;
@@ -18,11 +21,15 @@ public class HomeActivity extends AppCompatActivity implements IHomeContract.IHo
 
     public static final String TAG = "Halodoc, HomeActivity";
 
-    IHomeContract.IHomePresenter homePresenter;
+    private IHomeContract.IHomePresenter homePresenter;
 
-    ActivityHomeBinding binding;
+    private ActivityHomeBinding binding;
 
-    SearchResultAdapter resultAdapter;
+    private SearchResultAdapter resultAdapter;
+
+    private LinearLayoutManager mLayoutManager;
+
+    boolean mIsLoading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +41,12 @@ public class HomeActivity extends AppCompatActivity implements IHomeContract.IHo
 
         resultAdapter = new SearchResultAdapter();
 
-        binding.homeRecyclerview.setLayoutManager(new LinearLayoutManager(this));
+        mLayoutManager = new LinearLayoutManager(this);
+
+        binding.homeRecyclerview.addOnScrollListener(mScrollListener);
+        binding.homeRecyclerview.setLayoutManager(mLayoutManager);
         binding.homeRecyclerview.setAdapter(resultAdapter);
+
 
         binding.homeBtnSearch.setOnClickListener(view -> {
 
@@ -45,6 +56,7 @@ public class HomeActivity extends AppCompatActivity implements IHomeContract.IHo
 
             homePresenter.onSearchAction(binding.homeTxtSearch.getText().toString());
         });
+
     }
 
     @Override
@@ -52,4 +64,35 @@ public class HomeActivity extends AppCompatActivity implements IHomeContract.IHo
 
         resultAdapter.updateData(hitsList);
     }
+
+    RecyclerView.OnScrollListener mScrollListener = new RecyclerView.OnScrollListener() {
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            if (mIsLoading) {
+                return;
+            }
+            int visibleItemCount = mLayoutManager.getChildCount();
+            int totalItemCount = mLayoutManager.getItemCount();
+            int pastVisibleItems = mLayoutManager.findFirstVisibleItemPosition();
+            if (pastVisibleItems + visibleItemCount >= totalItemCount) {
+                homePresenter.loadNextPage(binding.homeTxtSearch.getText().toString());
+            }
+        }
+    };
+
+    @Override
+    public void startProgress() {
+        binding.mainProgress.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void stopProgress() {
+        binding.mainProgress.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showError() {
+        Toast.makeText(HomeActivity.this, "Error Occurred", Toast.LENGTH_SHORT).show();
+    }
+
 }

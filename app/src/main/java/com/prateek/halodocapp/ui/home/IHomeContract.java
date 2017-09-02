@@ -12,9 +12,17 @@ public interface IHomeContract {
 
     interface IHomeView {
         void searchResult(List<Hit> hitsArrayList);
+
+        void startProgress();
+
+        void stopProgress();
+
+        void showError();
     }
 
     interface IHomePresenter {
         void onSearchAction(String value);
+
+        void loadNextPage(String value);
     }
 }
