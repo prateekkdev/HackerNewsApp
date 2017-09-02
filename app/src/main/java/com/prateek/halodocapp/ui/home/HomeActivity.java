@@ -2,16 +2,12 @@ package com.prateek.halodocapp.ui.home;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.prateek.halodocapp.R;
 import com.prateek.halodocapp.app.HalodocApp;
 import com.prateek.halodocapp.network.RetrofitService;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
-
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements IHomeContract.IHomeView {
 
     public static final String TAG = "Halodoc, HomeActivity";
 
@@ -24,7 +20,14 @@ public class HomeActivity extends AppCompatActivity {
 
         RetrofitService retrofitService = ((HalodocApp) this.getApplication()).retrofitClient();
 
-        homePresenter = new HomePresenter();
+        homePresenter = new HomePresenter(retrofitService);
+
+
+
+    }
+
+    @Override
+    public void searchResult() {
 
     }
 }
