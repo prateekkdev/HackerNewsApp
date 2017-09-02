@@ -59,10 +59,12 @@ public class HomeActivity extends AppCompatActivity implements IHomeContract.IHo
 
     }
 
-    @Override
-    public void searchResult(List<Hit> hitsList) {
+    int currentItem = 0;
 
+    @Override
+    public void showResult(List<Hit> hitsList) {
         resultAdapter.updateData(hitsList);
+        binding.homeRecyclerview.scrollToPosition(currentItem);
     }
 
     RecyclerView.OnScrollListener mScrollListener = new RecyclerView.OnScrollListener() {
@@ -75,6 +77,7 @@ public class HomeActivity extends AppCompatActivity implements IHomeContract.IHo
             int totalItemCount = mLayoutManager.getItemCount();
             int pastVisibleItems = mLayoutManager.findFirstVisibleItemPosition();
             if (pastVisibleItems + visibleItemCount >= totalItemCount) {
+                currentItem = totalItemCount;
                 homePresenter.loadNextPage(binding.homeTxtSearch.getText().toString());
             }
         }

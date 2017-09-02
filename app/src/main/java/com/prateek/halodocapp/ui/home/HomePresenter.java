@@ -3,6 +3,9 @@ package com.prateek.halodocapp.ui.home;
 import android.util.Log;
 
 import com.prateek.halodocapp.network.RetrofitService;
+import com.prateek.halodocapp.network.dto.Hit;
+
+import java.util.ArrayList;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -21,9 +24,13 @@ public class HomePresenter implements IHomeContract.IHomePresenter {
 
     private int currentPage;
 
+    private ArrayList<Hit> listItems;
+
     public HomePresenter(IHomeContract.IHomeView homeView, RetrofitService service) {
         this.service = service;
         this.homeView = homeView;
+
+        this.listItems = new ArrayList<>();
     }
 
     @Override
@@ -45,7 +52,14 @@ public class HomePresenter implements IHomeContract.IHomePresenter {
                 .doOnTerminate(() -> homeView.stopProgress())
                 .subscribe(results -> {
                             Log.e(TAG, "Network Success, total hits: " + results.getHits().size());
-                            homeView.searchResult(results.getHits());
+
+                            if (page == 0) {
+                                listItems = results.getHits();
+                            } else {
+                                listItems.addAll(results.getHits());
+                            }
+
+                            homeView.showResult(listItems);
                         }
                         , throwable -> {
                             Log.e(TAG, "Network Error: " + throwable.getMessage());

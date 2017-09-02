@@ -1,5 +1,6 @@
 package com.prateek.halodocapp.network.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
 
 public class SearchResult {
 
-    private List<Hit> hits = null;
+    private ArrayList<Hit> hits = null;
     private Integer nbHits;
     private Integer page;
     private Integer nbPages;
@@ -18,11 +19,11 @@ public class SearchResult {
     private String query;
     private String params;
 
-    public List<Hit> getHits() {
+    public ArrayList<Hit> getHits() {
         return hits;
     }
 
-    public void setHits(List<Hit> hits) {
+    public void setHits(ArrayList<Hit> hits) {
         this.hits = hits;
     }
 

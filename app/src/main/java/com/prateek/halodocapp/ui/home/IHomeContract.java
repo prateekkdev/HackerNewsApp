@@ -11,7 +11,7 @@ import java.util.List;
 public interface IHomeContract {
 
     interface IHomeView {
-        void searchResult(List<Hit> hitsArrayList);
+        void showResult(List<Hit> hitsArrayList);
 
         void startProgress();
 
