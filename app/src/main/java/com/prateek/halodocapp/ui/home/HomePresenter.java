@@ -55,11 +55,11 @@ public class HomePresenter implements IHomeContract.IHomePresenter {
 
                             if (page == 0) {
                                 listItems = results.getHits();
+                                homeView.loadResult(listItems);
                             } else {
                                 listItems.addAll(results.getHits());
+                                homeView.loadNextResult(listItems);
                             }
-
-                            homeView.showResult(listItems);
                         }
                         , throwable -> {
                             Log.e(TAG, "Network Error: " + throwable.getMessage());
