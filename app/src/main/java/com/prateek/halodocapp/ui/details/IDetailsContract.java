@@ -7,11 +7,14 @@ package com.prateek.halodocapp.ui.details;
 public interface IDetailsContract {
 
     interface IDetailsView {
+        void startProgress();
 
+        void stopProgress();
+
+        void showError();
     }
 
     interface IDetailsPresenter {
 
     }
-
 }
