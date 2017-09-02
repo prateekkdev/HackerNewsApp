@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
@@ -16,6 +18,11 @@ import com.prateek.halodocapp.databinding.ActivityHomeBinding;
 import com.prateek.halodocapp.network.dto.Hit;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 
 public class HomeActivity extends AppCompatActivity implements IHomeContract.IHomeView {
 
@@ -57,7 +64,36 @@ public class HomeActivity extends AppCompatActivity implements IHomeContract.IHo
             homePresenter.onSearchAction(binding.homeTxtSearch.getText().toString());
         });
 
+
+        getSearchQueryWhenTextChange().subscribe(str -> homePresenter.onSearchAction(str));
     }
+
+    Observable<String> getSearchQueryWhenTextChange() {
+        return Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(ObservableEmitter<String> e) throws Exception {
+
+                binding.homeTxtSearch.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                        e.onNext(charSequence.toString());
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+
+                    }
+                });
+            }
+        }).filter(str -> str.length() > 3)
+                .debounce(3000, TimeUnit.MILLISECONDS);
+    }
+
 
     @Override
     public void loadResult(List<Hit> hitsList) {
@@ -78,7 +114,7 @@ public class HomeActivity extends AppCompatActivity implements IHomeContract.IHo
             int visibleItemCount = mLayoutManager.getChildCount();
             int totalItemCount = mLayoutManager.getItemCount();
             int pastVisibleItems = mLayoutManager.findFirstVisibleItemPosition();
-            if (pastVisibleItems + visibleItemCount  - 5 >= totalItemCount) {
+            if (pastVisibleItems + visibleItemCount - 5 >= totalItemCount) {
                 homePresenter.loadNextPage(binding.homeTxtSearch.getText().toString());
             }
         }
