@@ -1,6 +1,6 @@
-package com.prateek.halodocapp.ui.home;
+package com.prateek.hackernewsapp.ui.home;
 
-import com.prateek.halodocapp.network.dto.Hit;
+import com.prateek.hackernewsapp.network.dto.Hit;
 
 import java.util.List;
 

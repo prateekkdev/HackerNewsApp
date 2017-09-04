@@ -1,4 +1,4 @@
-package com.prateek.halodocapp.ui.home;
+package com.prateek.hackernewsapp.ui.home;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,10 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.prateek.halodocapp.R;
-import com.prateek.halodocapp.databinding.SearchListItemBinding;
-import com.prateek.halodocapp.network.dto.Hit;
-import com.prateek.halodocapp.ui.details.DetailsActivity;
+import com.prateek.hackernewsapp.R;
+import com.prateek.hackernewsapp.databinding.SearchListItemBinding;
+import com.prateek.hackernewsapp.network.dto.Hit;
+import com.prateek.hackernewsapp.ui.details.DetailsActivity;
 
 import java.util.List;
 

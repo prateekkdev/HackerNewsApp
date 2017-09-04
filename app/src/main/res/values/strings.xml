@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HalodocApp</string>
+    <string name="app_name">HackerNewsApp</string>
     <string name="title_activity_details">DetailsActivity</string>
     <string name="btn_search">Search</string>
     <string name="txt_serach">Search Here!</string>

@@ -1,4 +1,4 @@
-package com.prateek.halodocapp.ui.home;
+package com.prateek.hackernewsapp.ui.home;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -12,10 +12,10 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
-import com.prateek.halodocapp.R;
-import com.prateek.halodocapp.app.HalodocApp;
-import com.prateek.halodocapp.databinding.ActivityHomeBinding;
-import com.prateek.halodocapp.network.dto.Hit;
+import com.prateek.hackernewsapp.R;
+import com.prateek.hackernewsapp.app.HackerNewsApp;
+import com.prateek.hackernewsapp.databinding.ActivityHomeBinding;
+import com.prateek.hackernewsapp.network.dto.Hit;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -27,16 +27,25 @@ import io.reactivex.ObservableOnSubscribe;
 public class HomeActivity extends AppCompatActivity implements IHomeContract.IHomeView {
 
     public static final String TAG = "Halodoc, HomeActivity";
-
-    private IHomeContract.IHomePresenter homePresenter;
-
-    private ActivityHomeBinding binding;
-
-    private SearchResultAdapter resultAdapter;
-
-    private LinearLayoutManager mLayoutManager;
-
     boolean mIsLoading;
+    private IHomeContract.IHomePresenter homePresenter;
+    private ActivityHomeBinding binding;
+    private SearchResultAdapter resultAdapter;
+    private LinearLayoutManager mLayoutManager;
+    RecyclerView.OnScrollListener mScrollListener = new RecyclerView.OnScrollListener() {
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            if (mIsLoading) {
+                return;
+            }
+            int visibleItemCount = mLayoutManager.getChildCount();
+            int totalItemCount = mLayoutManager.getItemCount();
+            int pastVisibleItems = mLayoutManager.findFirstVisibleItemPosition();
+            if (pastVisibleItems + visibleItemCount - 5 >= totalItemCount) {
+                homePresenter.loadNextPage(binding.homeTxtSearch.getText().toString());
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +53,7 @@ public class HomeActivity extends AppCompatActivity implements IHomeContract.IHo
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
 
-        homePresenter = new HomePresenter(this, ((HalodocApp) this.getApplication()).retrofitClient());
+        homePresenter = new HomePresenter(this, ((HackerNewsApp) this.getApplication()).retrofitClient());
 
         resultAdapter = new SearchResultAdapter();
 
@@ -94,7 +103,6 @@ public class HomeActivity extends AppCompatActivity implements IHomeContract.IHo
                 .debounce(3000, TimeUnit.MILLISECONDS);
     }
 
-
     @Override
     public void loadResult(List<Hit> hitsList) {
         resultAdapter.updateData(hitsList);
@@ -104,21 +112,6 @@ public class HomeActivity extends AppCompatActivity implements IHomeContract.IHo
     public void loadNextResult(List<Hit> hitsList) {
         resultAdapter.updateData(hitsList);
     }
-
-    RecyclerView.OnScrollListener mScrollListener = new RecyclerView.OnScrollListener() {
-        @Override
-        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-            if (mIsLoading) {
-                return;
-            }
-            int visibleItemCount = mLayoutManager.getChildCount();
-            int totalItemCount = mLayoutManager.getItemCount();
-            int pastVisibleItems = mLayoutManager.findFirstVisibleItemPosition();
-            if (pastVisibleItems + visibleItemCount - 5 >= totalItemCount) {
-                homePresenter.loadNextPage(binding.homeTxtSearch.getText().toString());
-            }
-        }
-    };
 
     @Override
     public void startProgress() {

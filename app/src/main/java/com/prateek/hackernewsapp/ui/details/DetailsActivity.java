@@ -1,4 +1,4 @@
-package com.prateek.halodocapp.ui.details;
+package com.prateek.hackernewsapp.ui.details;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -9,8 +9,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
-import com.prateek.halodocapp.R;
-import com.prateek.halodocapp.databinding.ActivityDetailsBinding;
+import com.prateek.hackernewsapp.R;
+import com.prateek.hackernewsapp.databinding.ActivityDetailsBinding;
 
 public class DetailsActivity extends AppCompatActivity implements IDetailsContract.IDetailsView {
 

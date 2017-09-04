@@ -5,8 +5,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp"
-        tools:context="com.prateek.halodocapp.ui.home.HomeActivity">
+        android:padding="8dp">
 
         <EditText
             android:id="@+id/home_txt_search"

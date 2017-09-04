@@ -1,7 +1,6 @@
-package com.prateek.halodocapp.network.dto;
+package com.prateek.hackernewsapp.network.dto;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by prateek.kesarwani on 02/09/17.

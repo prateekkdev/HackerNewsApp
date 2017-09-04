@@ -1,12 +1,12 @@
-package com.prateek.halodocapp.network.dto;
-
-import java.util.List;
+package com.prateek.hackernewsapp.network.dto;
 
 /**
  * Created by prateek.kesarwani on 02/09/17.
  */
 
-public class Title {
+import java.util.List;
+
+public class Url {
 
     private String value;
     private String matchLevel;

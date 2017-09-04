@@ -1,4 +1,4 @@
-package com.prateek.halodocapp.network;
+package com.prateek.hackernewsapp.network;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

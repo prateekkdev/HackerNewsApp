@@ -1,4 +1,4 @@
-package com.prateek.halodocapp.network.dto;
+package com.prateek.hackernewsapp.network.dto;
 
 import java.util.List;
 

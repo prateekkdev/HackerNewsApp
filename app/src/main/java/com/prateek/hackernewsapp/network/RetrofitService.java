@@ -1,6 +1,6 @@
-package com.prateek.halodocapp.network;
+package com.prateek.hackernewsapp.network;
 
-import com.prateek.halodocapp.network.dto.SearchResult;
+import com.prateek.hackernewsapp.network.dto.SearchResult;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;

@@ -1,4 +1,4 @@
-package com.prateek.halodocapp.network.dto;
+package com.prateek.hackernewsapp.network.dto;
 
 import java.util.List;
 
@@ -6,11 +6,12 @@ import java.util.List;
  * Created by prateek.kesarwani on 02/09/17.
  */
 
-public class Author {
+public class Title {
 
     private String value;
     private String matchLevel;
-    private List<Object> matchedWords = null;
+    private Boolean fullyHighlighted;
+    private List<String> matchedWords = null;
 
     public String getValue() {
         return value;
@@ -28,11 +29,19 @@ public class Author {
         this.matchLevel = matchLevel;
     }
 
-    public List<Object> getMatchedWords() {
+    public Boolean getFullyHighlighted() {
+        return fullyHighlighted;
+    }
+
+    public void setFullyHighlighted(Boolean fullyHighlighted) {
+        this.fullyHighlighted = fullyHighlighted;
+    }
+
+    public List<String> getMatchedWords() {
         return matchedWords;
     }
 
-    public void setMatchedWords(List<Object> matchedWords) {
+    public void setMatchedWords(List<String> matchedWords) {
         this.matchedWords = matchedWords;
     }
 
