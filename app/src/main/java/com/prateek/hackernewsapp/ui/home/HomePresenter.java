@@ -16,7 +16,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class HomePresenter implements IHomeContract.IHomePresenter {
 
-    public static final String TAG = "Halodoc, HomePresenter";
+    public static final String TAG = "HN, HomePresenter";
 
     private IHomeContract.IHomeView homeView;
 

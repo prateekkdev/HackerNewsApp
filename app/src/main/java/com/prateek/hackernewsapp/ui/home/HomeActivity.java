@@ -27,7 +27,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class HomeActivity extends AppCompatActivity implements IHomeContract.IHomeView {
 
-    public static final String TAG = "Halodoc, HomeActivity";
+    public static final String TAG = "HM, HomeActivity";
     boolean mIsLoading;
     private IHomeContract.IHomePresenter homePresenter;
     private ActivityHomeBinding binding;
@@ -42,7 +42,7 @@ public class HomeActivity extends AppCompatActivity implements IHomeContract.IHo
             int visibleItemCount = mLayoutManager.getChildCount();
             int totalItemCount = mLayoutManager.getItemCount();
             int pastVisibleItems = mLayoutManager.findFirstVisibleItemPosition();
-            if (pastVisibleItems + visibleItemCount - 5 >= totalItemCount) {
+            if (pastVisibleItems + visibleItemCount >= totalItemCount - 3) {
                 homePresenter.loadNextPage(binding.homeTxtSearch.getText().toString());
             }
         }
