@@ -20,6 +20,8 @@ public interface IHomeContract {
         void stopProgress();
 
         void showError();
+
+        void hideKeyboard();
     }
 
     interface IHomePresenter {

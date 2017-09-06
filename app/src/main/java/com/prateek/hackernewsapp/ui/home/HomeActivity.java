@@ -23,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class HomeActivity extends AppCompatActivity implements IHomeContract.IHomeView {
 
@@ -32,7 +33,7 @@ public class HomeActivity extends AppCompatActivity implements IHomeContract.IHo
     private ActivityHomeBinding binding;
     private SearchResultAdapter resultAdapter;
     private LinearLayoutManager mLayoutManager;
-    RecyclerView.OnScrollListener mScrollListener = new RecyclerView.OnScrollListener() {
+    private RecyclerView.OnScrollListener mScrollListener = new RecyclerView.OnScrollListener() {
         @Override
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             if (mIsLoading) {
@@ -63,19 +64,18 @@ public class HomeActivity extends AppCompatActivity implements IHomeContract.IHo
         binding.homeRecyclerview.setLayoutManager(mLayoutManager);
         binding.homeRecyclerview.setAdapter(resultAdapter);
 
-
-        binding.homeBtnSearch.setOnClickListener(view -> {
-
-            InputMethodManager imm = (InputMethodManager) getSystemService(
-                    Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(binding.homeBtnSearch.getWindowToken(), 0);
-
-            homePresenter.onSearchAction(binding.homeTxtSearch.getText().toString());
-        });
-
+        binding.homeBtnSearch.setOnClickListener(view -> homePresenter.onSearchAction(binding.homeTxtSearch.getText().toString()));
 
         getSearchQueryWhenTextChange().subscribe(str -> homePresenter.onSearchAction(str));
     }
+
+    @Override
+    public void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(
+                Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(binding.homeBtnSearch.getWindowToken(), 0);
+    }
+
 
     Observable<String> getSearchQueryWhenTextChange() {
         return Observable.create(new ObservableOnSubscribe<String>() {
@@ -100,7 +100,8 @@ public class HomeActivity extends AppCompatActivity implements IHomeContract.IHo
                 });
             }
         }).filter(str -> str.length() > 3)
-                .debounce(3000, TimeUnit.MILLISECONDS);
+                .debounce(1000, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override

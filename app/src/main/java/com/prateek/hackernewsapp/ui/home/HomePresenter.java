@@ -42,6 +42,7 @@ public class HomePresenter implements IHomeContract.IHomePresenter {
 
     private void resetCurrentPage() {
         currentPage = 0;
+        homeView.hideKeyboard();
     }
 
     private void search(String value, int page) {
