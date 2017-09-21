@@ -31,25 +31,18 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 public class HomeActivity extends AppCompatActivity implements IHomeContract.IHomeView {
 
     public static final String TAG = "HM, HomeActivity";
-    private boolean mIsLoading;
-
-    private ActivityHomeBinding binding;
-
     @Inject
     HomePresenter homePresenter;
-
     @Inject
     SearchResultAdapter resultAdapter;
-
     @Inject
     LinearLayoutManager mLayoutManager;
-
     @Inject
     RetrofitService retrofitClient;
-
     @Inject
     Context appContext;
-
+    private boolean mIsLoading;
+    private ActivityHomeBinding binding;
     private RecyclerView.OnScrollListener mScrollListener = new RecyclerView.OnScrollListener() {
         @Override
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {

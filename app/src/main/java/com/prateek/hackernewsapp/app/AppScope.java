@@ -3,7 +3,6 @@ package com.prateek.hackernewsapp.app;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import javax.inject.Named;
 import javax.inject.Scope;
 
 /**

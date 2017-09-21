@@ -1,15 +1,9 @@
 package com.prateek.hackernewsapp.ui.home;
 
-import android.app.Activity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.widget.LinearLayout;
 
 import com.prateek.hackernewsapp.network.RetrofitService;
 import com.prateek.hackernewsapp.ui.ActivityScope;
-import com.prateek.hackernewsapp.ui.home.HomeActivity;
-import com.prateek.hackernewsapp.ui.home.HomePresenter;
-import com.prateek.hackernewsapp.ui.home.IHomeContract;
-import com.prateek.hackernewsapp.ui.home.SearchResultAdapter;
 
 import dagger.Module;
 import dagger.Provides;

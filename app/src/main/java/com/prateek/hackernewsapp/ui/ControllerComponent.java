@@ -1,10 +1,8 @@
 package com.prateek.hackernewsapp.ui;
 
-import com.prateek.hackernewsapp.app.AppComponent;
 import com.prateek.hackernewsapp.ui.home.HomeActivity;
 import com.prateek.hackernewsapp.ui.home.HomeModule;
 
-import dagger.Component;
 import dagger.Subcomponent;
 
 /**
