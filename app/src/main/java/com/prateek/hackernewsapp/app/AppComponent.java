@@ -13,5 +13,5 @@ import dagger.Component;
 @Component(modules = {NetworkModule.class, AppModule.class})
 @AppScope
 public interface AppComponent {
-    ControllerComponent plus(HomeModule module);
+    ControllerComponent createControllerComponent(HomeModule module);
 }

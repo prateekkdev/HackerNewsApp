@@ -64,7 +64,7 @@ public class HomeActivity extends AppCompatActivity implements IHomeContract.IHo
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
 
-        ((App) getApplication()).getAppComponenet().plus(new HomeModule(this)).inject(this);
+        ((App) getApplication()).getAppComponenet().createControllerComponent(new HomeModule(this)).inject(this);
 
         binding.homeRecyclerview.addOnScrollListener(mScrollListener);
         binding.homeRecyclerview.setLayoutManager(mLayoutManager);
