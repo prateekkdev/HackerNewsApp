@@ -32,7 +32,7 @@ public class HomeActivity extends AppCompatActivity implements IHomeContract.IHo
 
     public static final String TAG = "HM, HomeActivity";
     @Inject
-    HomePresenter homePresenter;
+    IHomeContract.IHomePresenter homePresenter;
     @Inject
     SearchResultAdapter resultAdapter;
     @Inject

@@ -23,7 +23,7 @@ public class HomeModule {
 
     @Provides
     @ActivityScope
-    HomePresenter provideHomePresenter(RetrofitService retrofitService) {
+    IHomeContract.IHomePresenter provideHomePresenter(RetrofitService retrofitService) {
         return new HomePresenter(activity, retrofitService);
     }
 
