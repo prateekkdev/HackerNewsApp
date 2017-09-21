@@ -13,12 +13,15 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.prateek.hackernewsapp.R;
-import com.prateek.hackernewsapp.app.HackerNewsApp;
+import com.prateek.hackernewsapp.app.App;
 import com.prateek.hackernewsapp.databinding.ActivityHomeBinding;
+import com.prateek.hackernewsapp.network.RetrofitService;
 import com.prateek.hackernewsapp.network.dto.Hit;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -28,7 +31,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 public class HomeActivity extends AppCompatActivity implements IHomeContract.IHomeView {
 
     public static final String TAG = "HM, HomeActivity";
-    boolean mIsLoading;
+    private boolean mIsLoading;
     private IHomeContract.IHomePresenter homePresenter;
     private ActivityHomeBinding binding;
     private SearchResultAdapter resultAdapter;
@@ -48,13 +51,21 @@ public class HomeActivity extends AppCompatActivity implements IHomeContract.IHo
         }
     };
 
+    @Inject
+    RetrofitService retrofitClient;
+
+    @Inject
+    Context appContext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
 
-        homePresenter = new HomePresenter(this, ((HackerNewsApp) this.getApplication()).retrofitClient());
+        ((App) getApplication()).getAppComponenet().inject(this);
+
+        homePresenter = new HomePresenter(this, retrofitClient);
 
         resultAdapter = new SearchResultAdapter();
 
