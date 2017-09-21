@@ -1,7 +1,8 @@
 package com.prateek.hackernewsapp.app;
 
 import com.prateek.hackernewsapp.network.NetworkModule;
-import com.prateek.hackernewsapp.ui.home.HomeActivity;
+import com.prateek.hackernewsapp.ui.ControllerComponent;
+import com.prateek.hackernewsapp.ui.home.HomeModule;
 
 import dagger.Component;
 
@@ -12,5 +13,5 @@ import dagger.Component;
 @Component(modules = {NetworkModule.class, AppModule.class})
 @AppScope
 public interface AppComponent {
-    void inject(HomeActivity homeActivity);
+    ControllerComponent plus(HomeModule module);
 }

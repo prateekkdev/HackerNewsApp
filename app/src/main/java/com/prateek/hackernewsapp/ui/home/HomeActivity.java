@@ -32,10 +32,24 @@ public class HomeActivity extends AppCompatActivity implements IHomeContract.IHo
 
     public static final String TAG = "HM, HomeActivity";
     private boolean mIsLoading;
-    private IHomeContract.IHomePresenter homePresenter;
+
     private ActivityHomeBinding binding;
-    private SearchResultAdapter resultAdapter;
-    private LinearLayoutManager mLayoutManager;
+
+    @Inject
+    HomePresenter homePresenter;
+
+    @Inject
+    SearchResultAdapter resultAdapter;
+
+    @Inject
+    LinearLayoutManager mLayoutManager;
+
+    @Inject
+    RetrofitService retrofitClient;
+
+    @Inject
+    Context appContext;
+
     private RecyclerView.OnScrollListener mScrollListener = new RecyclerView.OnScrollListener() {
         @Override
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -51,25 +65,13 @@ public class HomeActivity extends AppCompatActivity implements IHomeContract.IHo
         }
     };
 
-    @Inject
-    RetrofitService retrofitClient;
-
-    @Inject
-    Context appContext;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
 
-        ((App) getApplication()).getAppComponenet().inject(this);
-
-        homePresenter = new HomePresenter(this, retrofitClient);
-
-        resultAdapter = new SearchResultAdapter();
-
-        mLayoutManager = new LinearLayoutManager(this);
+        ((App) getApplication()).getAppComponenet().plus(new HomeModule(this)).inject(this);
 
         binding.homeRecyclerview.addOnScrollListener(mScrollListener);
         binding.homeRecyclerview.setLayoutManager(mLayoutManager);

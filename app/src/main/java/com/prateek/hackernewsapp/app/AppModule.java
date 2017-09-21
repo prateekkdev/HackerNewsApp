@@ -11,7 +11,6 @@ import dagger.Provides;
  */
 
 @Module
-@AppScope
 public class AppModule {
 
     private Context context;
