@@ -1,6 +1,7 @@
 package com.prateek.hackernewsapp.ui.home;
 
 import com.prateek.hackernewsapp.network.dto.Hit;
+import com.prateek.hackernewsapp.ui.IBaseContract;
 
 import java.util.List;
 
@@ -10,21 +11,13 @@ import java.util.List;
 
 public interface IHomeContract {
 
-    interface IHomeView {
+    interface IHomeView extends IBaseContract.IBaseView {
         void loadResult(List<Hit> hitsArrayList);
 
         void loadNextResult(List<Hit> hitsArrayList);
-
-        void startProgress();
-
-        void stopProgress();
-
-        void showError();
-
-        void hideKeyboard();
     }
 
-    interface IHomePresenter {
+    interface IHomePresenter extends IBaseContract.IBasePresenter {
         void onSearchAction(String value);
 
         void loadNextPage(String value);

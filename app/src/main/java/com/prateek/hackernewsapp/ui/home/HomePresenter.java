@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.prateek.hackernewsapp.network.RetrofitService;
 import com.prateek.hackernewsapp.network.dto.Hit;
+import com.prateek.hackernewsapp.ui.BasePresenter;
 
 import java.util.ArrayList;
 
@@ -14,7 +15,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by prateek.kesarwani on 02/09/17.
  */
 
-public class HomePresenter implements IHomeContract.IHomePresenter {
+public class HomePresenter extends BasePresenter implements IHomeContract.IHomePresenter {
 
     public static final String TAG = "HN, HomePresenter";
 

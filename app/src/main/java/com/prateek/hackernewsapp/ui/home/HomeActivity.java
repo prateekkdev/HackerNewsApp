@@ -3,13 +3,11 @@ package com.prateek.hackernewsapp.ui.home;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.prateek.hackernewsapp.R;
@@ -17,6 +15,7 @@ import com.prateek.hackernewsapp.app.App;
 import com.prateek.hackernewsapp.databinding.ActivityHomeBinding;
 import com.prateek.hackernewsapp.network.RetrofitService;
 import com.prateek.hackernewsapp.network.dto.Hit;
+import com.prateek.hackernewsapp.ui.BaseActivity;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -28,7 +27,7 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
-public class HomeActivity extends AppCompatActivity implements IHomeContract.IHomeView {
+public class HomeActivity extends BaseActivity implements IHomeContract.IHomeView {
 
     public static final String TAG = "HM, HomeActivity";
     @Inject
@@ -74,14 +73,6 @@ public class HomeActivity extends AppCompatActivity implements IHomeContract.IHo
 
         getSearchQueryWhenTextChange().subscribe(str -> homePresenter.onSearchAction(str));
     }
-
-    @Override
-    public void hideKeyboard() {
-        InputMethodManager imm = (InputMethodManager) getSystemService(
-                Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(binding.homeBtnSearch.getWindowToken(), 0);
-    }
-
 
     Observable<String> getSearchQueryWhenTextChange() {
         return Observable.create(new ObservableOnSubscribe<String>() {
