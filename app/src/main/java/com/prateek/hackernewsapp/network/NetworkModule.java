@@ -16,7 +16,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 @Module
-@AppScope
 public class NetworkModule {
 
     @AppScope
