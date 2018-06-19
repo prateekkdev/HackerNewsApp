@@ -1,4 +1,4 @@
-package com.prateek.hackernewsapp.ui.details;
+package com.prateek.hackernewsapp.ui.news.details;
 
 /**
  * Created by prateek.kesarwani on 02/09/17.

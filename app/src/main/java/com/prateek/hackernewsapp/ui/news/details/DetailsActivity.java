@@ -1,4 +1,4 @@
-package com.prateek.hackernewsapp.ui.details;
+package com.prateek.hackernewsapp.ui.news.details;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;

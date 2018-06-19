@@ -1,4 +1,4 @@
-package com.prateek.hackernewsapp.ui.home;
+package com.prateek.hackernewsapp.ui.news.home;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -63,7 +63,7 @@ public class HomeActivity extends BaseActivity implements IHomeContract.IHomeVie
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
 
-        ((App) getApplication()).getAppComponenet().createControllerComponent(new HomeModule(this)).inject(this);
+        ((App) getApplication()).newsComponent().plusHomeComponent(new HomeModule(this));
 
         binding.homeRecyclerview.addOnScrollListener(mScrollListener);
         binding.homeRecyclerview.setLayoutManager(mLayoutManager);

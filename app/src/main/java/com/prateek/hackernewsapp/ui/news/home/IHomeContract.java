@@ -1,4 +1,4 @@
-package com.prateek.hackernewsapp.ui.home;
+package com.prateek.hackernewsapp.ui.news.home;
 
 import com.prateek.hackernewsapp.network.dto.Hit;
 import com.prateek.hackernewsapp.ui.IBaseContract;

@@ -1,9 +1,8 @@
-package com.prateek.hackernewsapp.ui.home;
+package com.prateek.hackernewsapp.ui.news.home;
 
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.prateek.hackernewsapp.network.RetrofitService;
-import com.prateek.hackernewsapp.ui.ActivityScope;
 
 import dagger.Module;
 import dagger.Provides;
@@ -22,19 +21,16 @@ public class HomeModule {
     }
 
     @Provides
-    @ActivityScope
     IHomeContract.IHomePresenter provideHomePresenter(RetrofitService retrofitService) {
         return new HomePresenter(activity, retrofitService);
     }
 
     @Provides
-    @ActivityScope
     SearchResultAdapter provideSearchResultAdapter() {
         return new SearchResultAdapter();
     }
 
     @Provides
-    @ActivityScope
     LinearLayoutManager provideLinearLayoutManager() {
         return new LinearLayoutManager(activity);
     }

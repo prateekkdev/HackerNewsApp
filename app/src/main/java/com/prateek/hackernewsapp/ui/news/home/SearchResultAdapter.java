@@ -1,4 +1,4 @@
-package com.prateek.hackernewsapp.ui.home;
+package com.prateek.hackernewsapp.ui.news.home;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.prateek.hackernewsapp.R;
 import com.prateek.hackernewsapp.databinding.SearchListItemBinding;
 import com.prateek.hackernewsapp.network.dto.Hit;
-import com.prateek.hackernewsapp.ui.details.DetailsActivity;
+import com.prateek.hackernewsapp.ui.news.details.DetailsActivity;
 
 import java.util.List;
 

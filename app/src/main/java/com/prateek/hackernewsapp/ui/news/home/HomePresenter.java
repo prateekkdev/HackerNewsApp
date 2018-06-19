@@ -1,4 +1,4 @@
-package com.prateek.hackernewsapp.ui.home;
+package com.prateek.hackernewsapp.ui.news.home;
 
 import android.util.Log;
 
